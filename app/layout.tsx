@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { site, siteUrl } from "@/content/site";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
@@ -59,7 +60,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${instrumentSerif.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}
       >
         {children}
       </body>

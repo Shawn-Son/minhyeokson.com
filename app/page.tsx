@@ -2,150 +2,255 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import Image from "next/image";
 import { site } from "@/content/site";
+import { Reveal } from "@/components/Reveal";
+import { Marquee } from "@/components/Marquee";
 
-/** The headshot is optional. Drop public/portrait.jpg in and it appears. */
 const hasPortrait = existsSync(join(process.cwd(), "public", "portrait.jpg"));
 
-function Label({ children }: { children: React.ReactNode }) {
+function Label({ children, dark = false }: { children: string; dark?: boolean }) {
   return (
-    <h2 className="mb-6 text-[11px] font-medium uppercase tracking-[0.2em] text-faint">
-      {children}
-    </h2>
+    <div className="flex items-center gap-4">
+      <span
+        className={`font-mono text-[11px] uppercase tracking-[0.22em] ${
+          dark ? "text-cream/45" : "text-faint"
+        }`}
+      >
+        {children}
+      </span>
+      <span
+        aria-hidden
+        className={`h-px flex-1 ${dark ? "bg-cream/15" : "bg-rule"}`}
+      />
+    </div>
   );
 }
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-2xl px-6 pb-24 pt-10 sm:pt-16">
-      <p className="rise font-display text-lg italic text-soft">{site.name}</p>
+    <main>
+      {/* ---- Hero ---------------------------------------------------- */}
+      <section className="mx-auto max-w-5xl px-6 pb-24 pt-8 sm:px-10 sm:pb-32 sm:pt-12">
+        <header className="rise flex items-center justify-between">
+          <p className="font-display text-lg italic text-soft">{site.name}</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Ann Arbor, MI
+          </p>
+        </header>
 
-      {/* Hero */}
-      <section className="rise mt-16 sm:mt-24" style={{ animationDelay: "60ms" }}>
-        <div className="flex flex-col-reverse gap-8 sm:flex-row sm:items-start sm:justify-between sm:gap-10">
-          <div className="flex-1">
-            <h1 className="font-display text-5xl leading-[1.05] tracking-tight text-ink sm:text-6xl">
-              {site.greeting}
+        <div className="mt-20 grid gap-12 sm:mt-28 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-16">
+          <div>
+            {/* Oversized display type is the moment the page was missing. */}
+            <h1
+              className="rise font-display leading-[0.92] tracking-[-0.02em] text-ink"
+              style={{ fontSize: "clamp(3.5rem, 11vw, 8rem)", animationDelay: "80ms" }}
+            >
+              hi, i&apos;m
+              <br />
+              shawn<span className="text-clay">.</span>
             </h1>
 
-            <p className="mt-6 text-[15px] leading-[1.7] text-soft">
+            <p
+              className="rise mt-10 max-w-lg text-[17px] leading-[1.65] text-soft"
+              style={{ animationDelay: "220ms" }}
+            >
               {site.intro}
             </p>
 
-            <p className="mt-3 text-[15px] leading-[1.7] text-ink">
+            <p
+              className="rise mt-4 max-w-lg text-[17px] leading-[1.65] text-ink"
+              style={{ animationDelay: "300ms" }}
+            >
               {site.status}
             </p>
+
+            <nav
+              className="rise mt-10 flex flex-wrap gap-x-8 gap-y-3"
+              style={{ animationDelay: "380ms" }}
+            >
+              {site.links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  {...(link.href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="group flex items-center gap-1.5 text-[15px] text-ink"
+                >
+                  <span className="draw">{link.label}</span>
+                  <span className="text-clay transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    ↗
+                  </span>
+                </a>
+              ))}
+            </nav>
           </div>
 
           {hasPortrait && (
-            // The headshot has a white studio background, so it sits as a pale
-            // block on the warm paper. The hairline ring makes that read as a
-            // deliberate card rather than a cutout.
-            <Image
-              src={site.portrait}
-              alt={site.displayName}
-              width={400}
-              height={400}
-              priority
-              className="h-36 w-36 shrink-0 rounded-2xl object-cover ring-1 ring-rule sm:h-44 sm:w-44"
-            />
+            <div
+              className="rise relative order-first sm:order-none"
+              style={{ animationDelay: "160ms" }}
+            >
+              {/* Offset frame gives the flat white studio photo some depth. */}
+              <span
+                aria-hidden
+                className="absolute -bottom-3 -right-3 h-full w-full rounded-[1.25rem] border border-clay/35"
+              />
+              <Image
+                src={site.portrait}
+                alt={site.displayName}
+                width={480}
+                height={480}
+                priority
+                className="relative h-44 w-44 rounded-[1.25rem] object-cover sm:h-64 sm:w-64"
+              />
+            </div>
           )}
         </div>
+      </section>
 
-        <nav className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-          {site.links.map((link) => (
+      {/* ---- Tools ticker -------------------------------------------- */}
+      <Marquee items={site.skills} />
+
+      {/* ---- Work ----------------------------------------------------- */}
+      <section className="mx-auto max-w-5xl px-6 py-24 sm:px-10 sm:py-32">
+        <Reveal>
+          <Label>Work</Label>
+        </Reveal>
+
+        <ul className="mt-14">
+          {site.work.map((job, i) => (
+            <Reveal key={job.company} delay={i * 90}>
+              <li className="group border-b border-rule py-9 transition-colors duration-300 first:border-t hover:border-clay/40">
+                <div className="grid gap-4 sm:grid-cols-[1fr_1.4fr] sm:gap-12">
+                  <div className="flex items-baseline justify-between gap-4 sm:block">
+                    <h3 className="text-xl tracking-tight text-ink transition-transform duration-500 ease-out sm:group-hover:translate-x-2">
+                      {job.company}
+                    </h3>
+                    <span className="font-mono text-xs text-faint sm:mt-2 sm:block">
+                      {job.period}
+                    </span>
+                  </div>
+
+                  <div>
+                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-clay">
+                      {job.role}
+                    </p>
+                    <p className="mt-3 text-[15px] leading-[1.7] text-soft">
+                      {job.blurb}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </Reveal>
+          ))}
+        </ul>
+      </section>
+
+      {/* ---- Projects (dark panel breaks the flat cream field) --------- */}
+      <section className="bg-ink py-24 text-cream sm:py-32">
+        <div className="mx-auto max-w-5xl px-6 sm:px-10">
+          <Reveal>
+            <Label dark>Selected projects</Label>
+          </Reveal>
+
+          <ul className="mt-14 space-y-2">
+            {site.projects.map((project, i) => (
+              <Reveal key={project.name} delay={i * 90}>
+                <li>
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block rounded-2xl px-5 py-8 transition-colors duration-500 hover:bg-cream/[0.04] sm:px-8"
+                  >
+                    <div className="grid gap-5 sm:grid-cols-[auto_1fr_auto] sm:items-start sm:gap-10">
+                      <span className="font-mono text-xs text-clay">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+
+                      <div>
+                        <h3
+                          className="font-display tracking-tight text-cream"
+                          style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)" }}
+                        >
+                          {project.name}
+                        </h3>
+                        <p className="mt-3 max-w-xl text-[15px] leading-[1.7] text-cream/55">
+                          {project.blurb}
+                        </p>
+                        <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.18em] text-cream/35">
+                          {project.stack.join("  /  ")}
+                        </p>
+                      </div>
+
+                      <span
+                        aria-hidden
+                        className="hidden text-2xl text-cream/25 transition-all duration-500 ease-out group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-clay sm:block"
+                      >
+                        ↗
+                      </span>
+                    </div>
+                  </a>
+                </li>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ---- Publication ---------------------------------------------- */}
+      <section className="mx-auto max-w-5xl px-6 py-24 sm:px-10 sm:py-32">
+        <Reveal>
+          <Label>Publication</Label>
+          <div className="mt-12 grid gap-4 sm:grid-cols-[1fr_1.4fr] sm:gap-12">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-clay">
+              {site.paper.venue} · {site.paper.year}
+            </p>
+            <p className="max-w-xl text-xl leading-[1.45] tracking-tight text-ink">
+              {site.paper.title}
+            </p>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ---- Contact --------------------------------------------------- */}
+      <footer className="border-t border-rule">
+        <div className="mx-auto max-w-5xl px-6 py-24 sm:px-10 sm:py-32">
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+              Get in touch
+            </p>
+
             <a
-              key={link.label}
-              href={link.href}
-              {...(link.href.startsWith("http")
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-              className="group text-[15px] text-ink underline decoration-rule underline-offset-[5px] transition-colors hover:decoration-ink"
+              href={`mailto:${site.email}`}
+              className="group mt-8 inline-block font-display tracking-tight text-ink"
+              style={{ fontSize: "clamp(2rem, 6.5vw, 4.5rem)" }}
             >
-              {link.label}
-              <span className="ml-0.5 text-faint transition-colors group-hover:text-ink">
-                ↗
-              </span>
+              <span className="draw">{site.email}</span>
             </a>
-          ))}
-        </nav>
-      </section>
 
-      {/* Work */}
-      <section className="mt-24">
-        <Label>Work</Label>
-        <ul className="space-y-9">
-          {site.work.map((job) => (
-            <li key={job.company}>
-              <div className="flex items-baseline justify-between gap-4">
-                <h3 className="text-[15px] font-medium text-ink">
-                  {job.company}
-                </h3>
-                <span className="shrink-0 text-[13px] text-faint">
-                  {job.period}
-                </span>
+            <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-8">
+              <p className="font-mono text-[11px] text-faint">
+                © {new Date().getFullYear()} {site.displayName}
+              </p>
+              <div className="flex gap-6">
+                {site.links
+                  .filter((l) => l.href.startsWith("http"))
+                  .map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-[11px] uppercase tracking-[0.18em] text-faint transition-colors hover:text-clay"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
               </div>
-              <p className="mt-0.5 text-[13px] text-faint">{job.role}</p>
-              <p className="mt-2.5 text-[15px] leading-[1.7] text-soft">
-                {job.blurb}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Projects */}
-      <section className="mt-20">
-        <Label>Projects</Label>
-        <ul className="space-y-9">
-          {site.projects.map((project) => (
-            <li key={project.name}>
-              <a
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-baseline gap-1.5 text-[15px] font-medium text-ink"
-              >
-                <span className="underline decoration-rule underline-offset-[5px] transition-colors group-hover:decoration-ink">
-                  {project.name}
-                </span>
-                <span className="text-faint transition-colors group-hover:text-ink">
-                  ↗
-                </span>
-              </a>
-              <p className="mt-2.5 text-[15px] leading-[1.7] text-soft">
-                {project.blurb}
-              </p>
-              <p className="mt-2 text-[13px] text-faint">
-                {project.stack.join("  ·  ")}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Publication */}
-      <section className="mt-20">
-        <Label>Publication</Label>
-        <p className="text-[15px] leading-[1.7] text-soft">
-          {site.paper.title}
-        </p>
-        <p className="mt-2 text-[13px] text-faint">
-          {site.paper.venue}, {site.paper.year}
-        </p>
-      </section>
-
-      {/* Skills */}
-      <section className="mt-20">
-        <Label>Tools</Label>
-        <p className="text-[15px] leading-[2] text-soft">
-          {site.skills.join("  ·  ")}
-        </p>
-      </section>
-
-      <footer className="mt-24 border-t border-rule pt-6">
-        <p className="text-[13px] text-faint">
-          {site.displayName} · {new Date().getFullYear()}
-        </p>
+            </div>
+          </Reveal>
+        </div>
       </footer>
     </main>
   );
