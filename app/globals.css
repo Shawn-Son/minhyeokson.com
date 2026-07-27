@@ -1,91 +1,66 @@
 @import "tailwindcss";
 
 /*
- * Dark mode is driven by a `.dark` class on <html>, set by the inline script in
- * layout.tsx before paint. That script reads localStorage first and falls back
- * to the OS preference, so both the manual toggle and the system default work
- * without a flash of the wrong theme.
+ * Light only, on purpose. Both reference sites commit to a single warm look,
+ * and a theme toggle is one more piece of chrome on a page whose whole point
+ * is that there is almost nothing on it.
  */
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
-  --bg: #fbfbfc;
-  --surface: #ffffff;
-  --surface-2: #f4f4f6;
-  --text: #18181b;
-  --text-muted: #62626d;
-  --text-faint: #8e8e99;
-  --border: #e5e5ea;
-  --border-strong: #d3d3da;
-  --accent: #4338ca;
-  --accent-soft: #eef0fd;
-  --accent-text: #ffffff;
-}
-
-html.dark {
-  --bg: #0b0b0e;
-  --surface: #131317;
-  --surface-2: #1b1b21;
-  --text: #ececf1;
-  --text-muted: #9d9daa;
-  --text-faint: #6f6f7c;
-  --border: #26262e;
-  --border-strong: #35353f;
-  --accent: #a5b4fc;
-  --accent-soft: #1c1c34;
-  --accent-text: #0b0b0e;
+  --paper: #f4f2ee;
+  --card: #ffffff;
+  --ink: #171613;
+  --ink-soft: #6c6960;
+  --ink-faint: #a09c92;
+  --rule: #e2ded6;
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-text: var(--text);
-  --color-muted: var(--text-muted);
-  --color-faint: var(--text-faint);
-  --color-line: var(--border);
-  --color-line-strong: var(--border-strong);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-  --color-accent-text: var(--accent-text);
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-soft: var(--ink-soft);
+  --color-faint: var(--ink-faint);
+  --color-rule: var(--rule);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
-}
-
-html {
-  scroll-behavior: smooth;
-  /* Keeps anchored headings clear of the sticky header. */
-  scroll-padding-top: 5rem;
+  --font-display: var(--font-instrument-serif), Georgia, serif;
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--accent-text);
+  background: var(--ink);
+  color: var(--paper);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 1.5px solid var(--ink);
   outline-offset: 3px;
-  border-radius: 2px;
+}
+
+/* One quiet entrance. Anything more would fight the restraint of the layout. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+  .rise {
+    animation: none;
   }
 }

@@ -1,105 +1,44 @@
 # minhyeokson.com
 
-Personal site for Minhyeok (Shawn) Son — Next.js 15 (App Router), TypeScript,
-Tailwind v4. Fully static: every route prerenders at build time.
+One page. Next.js, TypeScript, Tailwind. Static.
 
 ```bash
-npm run dev     # http://localhost:3000
-npm run build   # production build — also type-checks and lints
-npm run lint
+npm run dev
+npm run build
 ```
 
-## The one rule
+## Editing
 
-**Every fact on this site lives in `content/`. Nothing is typed into a
-component.**
+Everything — copy, jobs, projects, links — is in **`content/site.ts`**. That is
+the only file you normally touch.
 
-That is deliberate. The three tailored resume PDFs had drifted apart — the same
-eBay role carried different numbers in each — and a public website plus a PDF
-that disagree is worse than either alone. `content/` is now the single source
-of truth, and a tailored resume should be a _subset_ of it, never a new set of
-numbers.
+The rule for that file is length: **one sentence per item, two at most.** The
+whole point of this layout is that a recruiter reads all of it in twenty
+seconds. If something needs a paragraph, it belongs in the resume PDF or a
+GitHub README, not here.
 
-| File                     | Holds                                                             |
-| ------------------------ | ----------------------------------------------------------------- |
-| `content/profile.ts`     | Name, positioning line, contact links, work authorization, skills |
-| `content/experience.ts`  | Roles and bullets, education, publications, awards                |
-| `content/projects.ts`    | Every project, including the full deep-dive narrative             |
-| `content/types.ts`       | Types — including the fixed six-section project structure         |
+## Your photo
 
-### Adding a project
+Drop a headshot at `public/portrait.jpg` and it appears next to the intro
+automatically. No file, no photo, no broken layout — the page checks at build
+time. Roughly square, 600×600 or larger.
 
-Append to the array in `content/projects.ts`. The type requires all six
-narrative sections (`problem`, `data`, `approach`, `evaluation`, `results`,
-`reflection`), so the build fails if one is missing — that is the point. Set
-`featured: true` to surface it on the home page.
+## Site URL
 
-Routes, the sitemap, and the tag filter all derive from that array. There is
-nothing else to update.
+`siteUrl` resolves from the environment, so nothing needs editing to deploy:
 
-### Writing content
-
-Body strings support `**bold**`, `` `code` ``, and `[links](url)` via the tiny
-renderer in `lib/markup.tsx`. No MDX toolchain, on purpose.
-
-## Structure
-
-```
-app/
-  page.tsx                 home — hero, featured work, timeline, research
-  projects/page.tsx        index with client-side tag filter
-  projects/[slug]/page.tsx deep-dive template (generateStaticParams)
-  research/page.tsx        plain-language summary of the Scientific Reports paper
-  about/page.tsx           bio, education, skills, honors
-  opengraph-image.tsx      link preview card, generated at build
-  icon.tsx                 favicon, generated at build
-  sitemap.ts / robots.ts
-components/                site chrome, UI primitives, project + timeline views
-content/                   all copy and data
-lib/markup.tsx             inline markup renderer
-public/resume/             the public resume PDF
-```
-
-## Theming
-
-Semantic CSS variables in `app/globals.css`, swapped by a `.dark` class on
-`<html>`. An inline script in `app/layout.tsx` applies the class before first
-paint — reading `localStorage` first, falling back to the OS preference — so
-there is no flash of the wrong theme.
-
-To restyle the whole site, change the variables in `:root` and `html.dark`.
-Nothing else references raw colors.
+1. `NEXT_PUBLIC_SITE_URL` — set this in Vercel once you own a domain.
+2. `VERCEL_PROJECT_PRODUCTION_URL` — Vercel injects this, so the free
+   `*.vercel.app` URL is already correct.
+3. `http://localhost:3000` in development.
 
 ## Deploying
 
-1. Push to GitHub.
-2. Import the repo on Vercel — the Next.js defaults are correct, no config.
-3. Add the custom domain in Vercel's project settings and paste the DNS records
-   it prints into your registrar.
-4. In Cloudflare, set those records to **DNS only** (grey cloud). Proxying in
-   front of Vercel causes certificate problems and buys nothing.
-Hosting is free on Vercel's Hobby plan — personal portfolios qualify, and no
-card is required. The only optional cost is a domain.
+Push to GitHub, import on Vercel, accept the defaults. Free on the Hobby plan.
 
-### Site URL
+## Loose ends
 
-Canonical URLs, the sitemap, and OG tags read `siteUrl` from
-`content/profile.ts`, which resolves in this order:
-
-1. `NEXT_PUBLIC_SITE_URL` — set this in Vercel once you own a domain.
-2. `VERCEL_PROJECT_PRODUCTION_URL` — injected by Vercel automatically, so the
-   free `*.vercel.app` deployment is already correct with no configuration.
-3. `http://localhost:3000` for development.
-
-So you only touch this after buying a domain, and then only as an environment
-variable — never as a code change.
-
-## Before it goes public
-
-- [ ] Fix the broken `github.com/Shawn/Agentic-RAG` link in the resume PDF
-      (correct: `github.com/Shawn-Son/Agentic-RAG`).
-- [ ] Confirm the American Airlines title. The site says "Applied Data
-      Scientist — Student Team, via University of Michigan" to match LinkedIn.
-- [ ] Publish the eBay NER project on GitHub and add the link in
-      `content/projects.ts` — it is the strongest credential with no repo.
-- [ ] Decide whether the Kalshi return figure stays.
+- The German NER project has no public repo yet — its link currently points at
+  your GitHub profile. It is your strongest credential; give it a repo.
+- The resume PDF in `public/resume/` still has a broken
+  `github.com/Shawn/Agentic-RAG` link (should be `Shawn-Son`).
