@@ -54,14 +54,13 @@ export default function Home() {
           </p>
 
           <h1 className="rise" style={{ animationDelay: "70ms" }}>
-            I turn messy data into{" "}
-            <em>reliable ML systems.</em>
+            Hey, I&apos;m Shawn. I like making <em>useful things.</em>
           </h1>
 
           <p className="hero-intro rise" style={{ animationDelay: "140ms" }}>
-            I&apos;m Shawn, a Michigan Data Science master&apos;s student and ML
-            Engineer Intern at eBay. I work across anomaly detection, NLP,
-            evaluation, and production workflows.
+            I&apos;m a curious builder based in Ann Arbor. I enjoy untangling
+            hard problems, learning quickly, and working with people who care
+            about the details.
           </p>
 
           <div className="hero-actions rise" style={{ animationDelay: "210ms" }}>

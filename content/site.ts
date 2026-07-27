@@ -22,7 +22,7 @@ export const site = {
   location: "Ann Arbor, MI",
 
   intro:
-    "MS Data Science at Michigan. Right now I'm an ML engineer intern at eBay, building anomaly detection over compliance signals.",
+    "Michigan Data Science master's student and ML Engineer Intern at eBay, interested in building thoughtful, useful systems.",
   status: "Open to 2027 full-time ML engineering roles.",
   authorization: "F-1 STEM · 36 months OPT eligible",
 
@@ -38,7 +38,7 @@ export const site = {
   portrait: "/portrait.jpg",
 
   highlights: [
-    { value: "25", label: "compliance signal types" },
+    { value: "46%", label: "fewer false positives" },
     { value: "1M+", label: "flight legs modeled" },
     { value: "2.9M", label: "sensor rows analyzed" },
     { value: "3 / 80", label: "solo competition rank" },
@@ -50,7 +50,7 @@ export const site = {
       role: "ML Engineer Intern",
       period: "2026",
       blurb:
-        "LLM monitoring workflow over 25 compliance signal types. Cut false positives 46% with STL decomposition and robust z-score detection.",
+        "Built an LLM monitoring workflow and cut false positives 46% with STL decomposition and robust z-score detection.",
     },
     {
       company: "American Airlines",
