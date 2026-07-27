@@ -37,13 +37,16 @@ export default function Home() {
           </div>
 
           {hasPortrait && (
+            // The headshot has a white studio background, so it sits as a pale
+            // block on the warm paper. The hairline ring makes that read as a
+            // deliberate card rather than a cutout.
             <Image
               src={site.portrait}
               alt={site.displayName}
-              width={320}
-              height={320}
+              width={400}
+              height={400}
               priority
-              className="h-32 w-32 shrink-0 rounded-2xl object-cover sm:h-40 sm:w-40"
+              className="h-36 w-36 shrink-0 rounded-2xl object-cover ring-1 ring-rule sm:h-44 sm:w-44"
             />
           )}
         </div>

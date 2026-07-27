@@ -23,6 +23,10 @@ Drop a headshot at `public/portrait.jpg` and it appears next to the intro
 automatically. No file, no photo, no broken layout — the page checks at build
 time. Roughly square, 600×600 or larger.
 
+Because that check runs once when the module loads, **restart `npm run dev`
+after adding the file** or it will not show up locally. Deploys are unaffected;
+the check runs fresh on every build.
+
 ## Site URL
 
 `siteUrl` resolves from the environment, so nothing needs editing to deploy:
