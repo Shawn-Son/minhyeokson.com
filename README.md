@@ -44,5 +44,5 @@ Push to GitHub, import on Vercel, accept the defaults. Free on the Hobby plan.
 
 - The German NER project has no public repo yet — its link currently points at
   your GitHub profile. It is your strongest credential; give it a repo.
-- The resume PDF in `public/resume/` still has a broken
-  `github.com/Shawn/Agentic-RAG` link (should be `Shawn-Son`).
+- There is deliberately no resume link. Send the tailored PDF per application
+  instead; the page carries email and LinkedIn.

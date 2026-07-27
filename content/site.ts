@@ -33,7 +33,6 @@ export const site = {
     { label: "Email", href: "mailto:shawn22587@gmail.com" },
     { label: "GitHub", href: "https://github.com/Shawn-Son" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/minhyeokson" },
-    { label: "Resume", href: "/resume/Minhyeok_Son_Resume.pdf" },
   ],
 
   /** Drop a headshot at public/portrait.jpg and it appears automatically. */
