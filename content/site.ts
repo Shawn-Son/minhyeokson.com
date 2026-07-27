@@ -38,7 +38,6 @@ export const site = {
   portrait: "/portrait.jpg",
 
   highlights: [
-    { value: "46%", label: "fewer false positives" },
     { value: "1M+", label: "flight legs modeled" },
     { value: "2.9M", label: "sensor rows analyzed" },
     { value: "3 / 80", label: "solo competition rank" },
