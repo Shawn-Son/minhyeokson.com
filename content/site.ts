@@ -22,13 +22,15 @@ export const siteHost = siteUrl.replace(/^https?:\/\//, "");
 export const site = {
   name: "Minhyeok Son",
   displayName: "Minhyeok (Shawn) Son",
-  greeting: "hi, i'm shawn",
+  location: "Ann Arbor, MI",
 
   intro:
     "MS Data Science at Michigan. Right now I'm an ML engineer intern at eBay, building anomaly detection over compliance signals.",
-  status: "Looking for 2027 full-time ML engineering roles.",
+  status: "Open to 2027 full-time ML engineering roles.",
+  authorization: "F-1 STEM · 36 months OPT eligible",
 
   email: "shawn22587@gmail.com",
+  resume: "/Minhyeok_Son_Resume.pdf",
   links: [
     { label: "Email", href: "mailto:shawn22587@gmail.com" },
     { label: "GitHub", href: "https://github.com/Shawn-Son" },
@@ -37,6 +39,13 @@ export const site = {
 
   /** Drop a headshot at public/portrait.jpg and it appears automatically. */
   portrait: "/portrait.jpg",
+
+  highlights: [
+    { value: "25", label: "compliance signal types" },
+    { value: "1M+", label: "flight legs modeled" },
+    { value: "2.9M", label: "sensor rows analyzed" },
+    { value: "3 / 80", label: "solo competition rank" },
+  ],
 
   work: [
     {
@@ -91,6 +100,7 @@ export const site = {
       "Active Inspection with Knowledge Distillation for Cost-Effective Fault Prediction",
     venue: "Scientific Reports",
     year: "2026",
+    href: "https://www.nature.com/articles/s41598-026-39412-8",
   },
 
   skills: [

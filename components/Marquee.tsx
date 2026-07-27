@@ -4,15 +4,14 @@
  */
 export function Marquee({ items }: { items: readonly string[] }) {
   return (
-    <div className="marquee relative overflow-hidden border-y border-rule py-5">
-      {/* Fade the edges so items enter and leave instead of being clipped. */}
+    <div className="marquee relative overflow-hidden border-y border-black/15 bg-paper-2 py-5">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-paper to-transparent"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-paper-2 to-transparent"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-paper to-transparent"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-paper-2 to-transparent"
       />
 
       <div className="marquee-track flex w-max">
@@ -25,10 +24,10 @@ export function Marquee({ items }: { items: readonly string[] }) {
             {items.map((item) => (
               <li
                 key={`${copy}-${item}`}
-                className="flex items-center whitespace-nowrap font-mono text-sm text-soft"
+                className="flex items-center whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.08em] text-soft"
               >
                 <span className="px-6">{item}</span>
-                <span className="text-clay">◦</span>
+                <span className="text-black">+</span>
               </li>
             ))}
           </ul>
