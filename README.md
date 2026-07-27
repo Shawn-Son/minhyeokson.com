@@ -78,8 +78,21 @@ Nothing else references raw colors.
    it prints into your registrar.
 4. In Cloudflare, set those records to **DNS only** (grey cloud). Proxying in
    front of Vercel causes certificate problems and buys nothing.
-5. Update `profile.siteUrl` in `content/profile.ts` if the domain differs from
-   `minhyeokson.com` — canonical URLs, the sitemap, and OG tags all read it.
+Hosting is free on Vercel's Hobby plan — personal portfolios qualify, and no
+card is required. The only optional cost is a domain.
+
+### Site URL
+
+Canonical URLs, the sitemap, and OG tags read `siteUrl` from
+`content/profile.ts`, which resolves in this order:
+
+1. `NEXT_PUBLIC_SITE_URL` — set this in Vercel once you own a domain.
+2. `VERCEL_PROJECT_PRODUCTION_URL` — injected by Vercel automatically, so the
+   free `*.vercel.app` deployment is already correct with no configuration.
+3. `http://localhost:3000` for development.
+
+So you only touch this after buying a domain, and then only as an environment
+variable — never as a code change.
 
 ## Before it goes public
 

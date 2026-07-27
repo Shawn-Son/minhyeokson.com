@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { profile } from "@/content/profile";
+import { profile, siteHost } from "@/content/profile";
 
 export const alt = `${profile.displayName} — ${profile.headline}`;
 export const size = { width: 1200, height: 630 };
@@ -66,7 +66,7 @@ export default function OpengraphImage() {
             paddingTop: 28,
           }}
         >
-          <span>minhyeokson.com</span>
+          <span>{siteHost}</span>
           <span>{profile.email}</span>
         </div>
       </div>

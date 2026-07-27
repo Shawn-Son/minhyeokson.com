@@ -1,3 +1,27 @@
+/**
+ * Canonical origin for metadata, the sitemap, and OG tags.
+ *
+ * Resolution order lets the site be correct on a free `*.vercel.app` URL and
+ * on a custom domain without a code change:
+ *   1. NEXT_PUBLIC_SITE_URL — set this once you own a domain.
+ *   2. VERCEL_PROJECT_PRODUCTION_URL — injected by Vercel automatically.
+ *   3. localhost, for development.
+ */
+function resolveSiteUrl(): string {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL;
+  if (explicit) return explicit.replace(/\/+$/, "");
+
+  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (vercel) return `https://${vercel}`;
+
+  return "http://localhost:3000";
+}
+
+export const siteUrl = resolveSiteUrl();
+
+/** Host without protocol — used as a display string. */
+export const siteHost = siteUrl.replace(/^https?:\/\//, "");
+
 export const profile = {
   name: "Minhyeok Son",
   preferredName: "Shawn",
@@ -18,8 +42,8 @@ export const profile = {
     email: "mailto:shawn22587@gmail.com",
     resume: "/resume/Minhyeok_Son_Resume.pdf",
   },
-  /** Used for canonical URLs, sitemap, and OG tags. Update after the domain is live. */
-  siteUrl: "https://minhyeokson.com",
+  /** Canonical origin. See resolveSiteUrl() above — set NEXT_PUBLIC_SITE_URL to override. */
+  siteUrl,
 } as const;
 
 export const skills: { group: string; items: string[] }[] = [
