@@ -28,6 +28,20 @@ export const metadata: Metadata = {
     description: `${site.intro} ${site.status}`,
     url: siteUrl,
     locale: "en_US",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: `${site.displayName} — ML Engineer`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.displayName} — ML Engineer`,
+    description: `${site.intro} ${site.status}`,
+    images: ["/og.png"],
   },
   alternates: { canonical: "/" },
 };
