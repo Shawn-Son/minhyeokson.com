@@ -50,17 +50,15 @@ export default function Home() {
         <div className="hero-copy">
           <p className="availability rise">
             <span aria-hidden />
-            Open to 2027 full-time ML engineering roles
+            {site.status.replace(/\.$/, "")}
           </p>
 
           <h1 className="rise" style={{ animationDelay: "70ms" }}>
-            Hey, I&apos;m Shawn. I like making <em>useful things.</em>
+            {site.headline} <em>{site.headlineEmphasis}</em>
           </h1>
 
           <p className="hero-intro rise" style={{ animationDelay: "140ms" }}>
-            I&apos;m a curious builder based in Ann Arbor. I enjoy untangling
-            hard problems, learning quickly, and working with people who care
-            about the details.
+            {site.intro}
           </p>
 
           <div className="hero-actions rise" style={{ animationDelay: "210ms" }}>

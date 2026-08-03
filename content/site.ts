@@ -21,8 +21,20 @@ export const site = {
   displayName: "Minhyeok (Shawn) Son",
   location: "Ann Arbor, MI",
 
+  /**
+   * The h1. `emphasis` renders in the serif italic, so it should carry the
+   * claim — not the greeting. Keep the two together under ~50 characters or
+   * the display type wraps to three lines.
+   */
+  headline: "Hey, I'm Shawn. I make",
+  headlineEmphasis: "ML work on messy data.",
+
+  /**
+   * Two sentences, both load-bearing: what I am, and what kind of problem I
+   * take. No adjectives about myself — the numbers below do that job.
+   */
   intro:
-    "Michigan Data Science master's student and ML Engineer Intern at eBay, interested in building thoughtful, useful systems.",
+    "Data Science master's at Michigan, ML Engineer Intern at eBay. I focus on rare-event detection and evaluation that holds up — fault prediction, flight delays, LLM monitoring.",
   status: "Open to 2027 full-time ML engineering roles.",
   authorization: "F-1 STEM · 36 months OPT eligible",
 
@@ -37,10 +49,15 @@ export const site = {
   /** Drop a headshot at public/portrait.jpg and it appears automatically. */
   portrait: "/portrait.jpg",
 
+  /**
+   * Outcomes and rank only — never data volume. "2.9M rows" says a file was
+   * large; "−46%" says something got better. Each value must be traceable to
+   * one of the entries below.
+   */
   highlights: [
-    { value: "1M+", label: "flight legs modeled" },
-    { value: "2.9M", label: "sensor rows analyzed" },
-    { value: "3 / 80", label: "solo competition rank" },
+    { value: "3 / 80", label: "NER competition, solo" },
+    { value: "−46%", label: "false positives, eBay" },
+    { value: "+8", label: "AUC points over baseline" },
   ],
 
   work: [
