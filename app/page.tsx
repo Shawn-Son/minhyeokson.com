@@ -156,17 +156,14 @@ export default function Home() {
           </Reveal>
 
           <div className="project-grid">
-            {site.projects.map((project, index) => (
-              <Reveal key={project.name} delay={index * 70}>
-                <a
-                  className="project-card"
-                  href={project.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+            {site.projects.map((project, index) => {
+              const href = "href" in project ? project.href : undefined;
+
+              const body = (
+                <>
                   <div className="project-top">
                     <span>{String(index + 1).padStart(2, "0")}</span>
-                    <span aria-hidden>↗</span>
+                    {href ? <span aria-hidden>↗</span> : null}
                   </div>
                   <h3>{project.name}</h3>
                   <p>{project.blurb}</p>
@@ -175,9 +172,26 @@ export default function Home() {
                       <span key={tool}>{tool}</span>
                     ))}
                   </div>
-                </a>
-              </Reveal>
-            ))}
+                </>
+              );
+
+              return (
+                <Reveal key={project.name} delay={index * 70}>
+                  {href ? (
+                    <a
+                      className="project-card"
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {body}
+                    </a>
+                  ) : (
+                    <div className="project-card is-static">{body}</div>
+                  )}
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>

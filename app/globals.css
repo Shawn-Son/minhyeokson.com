@@ -563,13 +563,13 @@ a {
   box-shadow: 0 28px 70px rgba(20, 33, 61, 0.2);
 }
 
-.project-card:hover {
+.project-card:not(.is-static):hover {
   transform: translateY(-5px) scale(1.005);
   border-color: #aebfee;
   box-shadow: 0 22px 55px rgba(49, 92, 245, 0.12);
 }
 
-.project-card:active {
+.project-card:not(.is-static):active {
   transform: scale(0.99);
 }
 

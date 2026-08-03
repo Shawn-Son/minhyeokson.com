@@ -40,9 +40,14 @@ the check runs fresh on every build.
 
 Push to GitHub, import on Vercel, accept the defaults. Free on the Hobby plan.
 
-## Loose ends
+## Project links
 
-- The German NER project has no public repo yet — its link currently points at
-  your GitHub profile. It is your strongest credential; give it a repo.
-- There is deliberately no resume link. Send the tailored PDF per application
-  instead; the page carries email and LinkedIn.
+`href` on a project is optional. Leave it off and the card renders as plain
+text — no link, no `↗`, no hover lift. The German NER work is under NDA, so it
+has no `href`.
+
+## Analytics
+
+`<Analytics />` from `@vercel/analytics` is mounted in `app/layout.tsx`. Page
+views appear in the Vercel dashboard after the next deploy; nothing is
+collected in local dev.

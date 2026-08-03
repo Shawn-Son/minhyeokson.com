@@ -67,13 +67,16 @@ export const site = {
     },
   ],
 
+  /**
+   * `href` is optional. Omit it and the card renders as plain text — no link,
+   * no arrow, no hover lift. Use that for anything under NDA.
+   */
   projects: [
     {
       name: "German E-commerce NER",
       blurb:
         "3rd of 80 teams, competing solo. XLM-R with a word-level CRF on German listing titles, at weighted-F3 0.9466.",
       stack: ["PyTorch", "XLM-R", "CRF"],
-      href: "https://github.com/Shawn-Son",
     },
     {
       name: "Kalshi Auto Trader",
